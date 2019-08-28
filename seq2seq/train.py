@@ -1,7 +1,7 @@
 import tensorflow as tf
 import argparse
-from seq2seq.data_utils import load_data, create_mapping, get_batches, Batch, sentences_to_ids
-from seq2seq.seq2seq_tensorflow import Seq2SeqModel
+from data_utils import load_data, create_mapping, get_batches, Batch, sentences_to_ids
+from seq2seq_tensorflow import Seq2SeqModel
 import os
 from sklearn.model_selection import train_test_split
 parser = argparse.ArgumentParser()
