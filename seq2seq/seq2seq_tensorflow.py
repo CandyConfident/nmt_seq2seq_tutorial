@@ -190,6 +190,8 @@ class Seq2SeqModel():
         decoder_outputs = self.decoder_layer()
         # 根据输出计算loss和梯度，并定义进行更新的AdamOptimizer和train_op
         decoder_logits_train = tf.identity(decoder_outputs.rnn_output)
+        # decoder_predict_train 在训练阶段其实没啥用，并不作为t+1阶段的输入。而是直接将target序列
+        # 作为decoder的输入
         self.decoder_predict_train = tf.argmax(decoder_logits_train, axis=-1,
                                                name='decoder_pred_train')
 
@@ -248,6 +250,8 @@ class Seq2SeqModel():
         feed_dict = self.create_feed_dict(is_train=False, is_infer=True, batch=batch)
         predict = sess.run([self.decoder_predict_decode], feed_dict=feed_dict)
         return predict
+
+
 
     def restore(self, sess, dir_model):
         """Reload weights into session
